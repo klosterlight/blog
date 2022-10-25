@@ -5,12 +5,8 @@ class LabelsController < ApplicationController
     end
 
     def show
-        @label = Label.find_by id: params[:id]
-        if @label.present?
-            render json: @label
-        else
-            render json: { messages: ["Label not found"] }, status: :not_found
-        end
+        @label = Label.find params[:id]
+        render json: @label
     end
 
     def create
@@ -23,18 +19,14 @@ class LabelsController < ApplicationController
     end
 
     def update
-        @label = Label.find_by id: params[:id]
-        if @label.present?
-            @label.assign_attributes label_params
-            @label.save
+        @label = Label.find params[:id]
+        @label.assign_attributes label_params
+        @label.save
 
-            if @label.save
-                render json: @label
-            else
-                render json: { messages: @label.errors.full_messages }, status: :unprocessable_entity
-            end
+        if @label.save
+            render json: @label
         else
-            render json: { messages: ["Label not found"] }, status: :not_found
+            render json: { messages: @label.errors.full_messages }, status: :unprocessable_entity
         end
     end
 
