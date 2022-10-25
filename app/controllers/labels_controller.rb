@@ -1,5 +1,5 @@
 class LabelsController < ApplicationController
-    before_action :find_label, only: [:show, :update]
+    before_action :find_label, only: [:show, :update, :destroy]
 
     def index
         @labels = Label.all
@@ -25,6 +25,12 @@ class LabelsController < ApplicationController
         else
             render json: { messages: @label.errors.full_messages }, status: :unprocessable_entity
         end
+    end
+
+    def destroy
+        @label.destroy
+
+        head 200
     end
 
     private
