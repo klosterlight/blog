@@ -1,16 +1,17 @@
 class LabelsController < ApplicationController
+    before_action :find_label, only: [:show, :update]
+
     def index
         @labels = Label.all
         render json: @labels
     end
 
     def show
-        @label = Label.find params[:id]
         render json: @label
     end
 
     def create
-        @label = Label.new name: params[:name], color: params[:color]
+        @label = Label.new label_params
         if @label.save
             render json: @label
         else
@@ -19,11 +20,7 @@ class LabelsController < ApplicationController
     end
 
     def update
-        @label = Label.find params[:id]
-        @label.assign_attributes label_params
-        @label.save
-
-        if @label.save
+        if @label.save label_params
             render json: @label
         else
             render json: { messages: @label.errors.full_messages }, status: :unprocessable_entity
@@ -34,5 +31,9 @@ class LabelsController < ApplicationController
     
     def label_params
         params.require(:label).permit(:name, :color)
+    end
+
+    def find_label
+        @label = Label.find params[:id]
     end
 end
