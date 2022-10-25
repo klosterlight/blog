@@ -9,17 +9,16 @@ class LabelsController < ApplicationController
         if @label.present?
             render json: @label
         else
-            render json: { message: "Label not found" }, status: :not_found
+            render json: { messages: ["Label not found"] }, status: :not_found
         end
     end
 
     def create
-        exist_label = Label.where(name: params[:name])
-        if exist_label.any?
-            render json: { message: "Label already exist. Please use another name" }, status: :unprocessable_entity
-        else
-            @label = Label.create name: params[:name], color: params[:color]
+        @label = Label.new name: params[:name], color: params[:color]
+        if @label.save
             render json: @label
+        else
+            render json: { messages: @label.errors.full_messages }, status: :unprocessable_entity
         end
     end
 end
