@@ -46,9 +46,9 @@ services:
       - gems:/usr/local/bundle
     ports:
       - "3000:3000"
-        #depends_on:
-      #- db
-        #- redis
-        #- sidekiq
+    depends_on:
+      - db
+      #- redis
+      #- sidekiq
     env_file:
       - .env
