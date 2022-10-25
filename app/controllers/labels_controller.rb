@@ -14,8 +14,12 @@ class LabelsController < ApplicationController
     end
 
     def create
-        @label = Label.create name: params[:name], color: params[:color]
-
-        render json: @label
+        exist_label = Label.where(name: params[:name])
+        if exist_label.any?
+            render json: { message: "Label already exist. Please use another name" }, status: :unprocessable_entity
+        else
+            @label = Label.create name: params[:name], color: params[:color]
+            render json: @label
+        end
     end
 end
