@@ -12,4 +12,10 @@ class LabelsController < ApplicationController
             render json: { message: "Label not found" }, status: :not_found
         end
     end
+
+    def create
+        @label = Label.create name: params[:name], color: params[:color]
+
+        render json: @label
+    end
 end
