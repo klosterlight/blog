@@ -6,6 +6,7 @@
 3. GRL [ADD] Allow the user to create new product_catalogs
 4. GRL [ADD] Do not allow the user to create repeated product_catalogs
 5. GRL [ADD] Dot not allow the user to create empty product_catalogs
+6. GRL [ADD] Allow the user to update a product_catalog
 
 ## 202-10-24
 1. GRL [ADD] Allow the user to manage labels

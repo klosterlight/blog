@@ -33,6 +33,16 @@ When('I POST a new \/product_catalogs with name {string}') do |name|
   @response_data = JSON.parse(last_response.body)
 end
 
+When('I PUT a \/product_catalogs\/:id with name {string}') do |name|
+  product_catalog_params = {
+    product_catalog: {
+      name: name
+    }
+  }
+  put(product_catalog_path(@product_catalog), product_catalog_params)
+  @response_data = JSON.parse(last_response.body)
+end
+
 Then('I should receive {int} status') do |http_status|
   expect(last_response.status).to eq http_status
 end
@@ -54,4 +64,8 @@ end
 
 Then('I should have a new product_catalog') do
   expect(@response_data["id"]).to be
+end
+
+Then('The product_catalog should have name {string}') do |name|
+  expect(@response_data["name"]).to eq name
 end
