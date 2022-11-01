@@ -9,7 +9,11 @@ end
 
 When('I GET a single \/product_catalog') do
   get(product_catalog_path(@product_catalogs.first))
-  # get "/product_catalogs/#{@product_catalogs.first.id}"
+  @response_data = JSON.parse(last_response.body)
+end
+
+When('I GET a single \/product_catalog that does not exist') do
+  get(product_catalog_path(0))
   @response_data = JSON.parse(last_response.body)
 end
 
@@ -26,4 +30,8 @@ Then('I should get the product_catalog') do
   expect(@response_data["id"]).to eq @product_catalogs[0].id
   expect(@response_data["name"]).to eq @product_catalogs[0].name
   expect(@response_data["is_active"]).to eq @product_catalogs[0].is_active
+end
+
+Then('I should get an error message {string}') do |error_message|
+  expect(@response_data["messages"][0]).to eq error_message
 end

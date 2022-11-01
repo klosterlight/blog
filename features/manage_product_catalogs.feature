@@ -13,6 +13,10 @@ Scenario: The user gets a single product_catalog
     And I should get the product_catalog
 
 Scenario: The user tries to get a single product_catalog but does not exist
+  Given That I have 1 product_catalogs created
+  When I GET a single /product_catalog that does not exist
+  Then I should receive 404 status
+    And I should get an error message "Couldn't find ProductCatalog with 'id'=0"
 
 Scenario: The user creates a new product_catalog
 
