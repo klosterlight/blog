@@ -31,6 +31,10 @@ Scenario: The user tries to create a new product_catalog but the name is being u
     And I should get an error message "Name has already been taken"
 
 Scenario: The user tries to create a new product_catalog but the name is empty
+  Given That I have a product_catalog with name "Machu Pichu"
+  When I POST a new /product_catalogs with name ""
+  Then I should receive 422 status
+    And I should get an error message "Name can't be blank"
 
 Scenario: The user updates a product_catalog
 
