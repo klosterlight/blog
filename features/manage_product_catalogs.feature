@@ -45,5 +45,14 @@ Scenario: The user updates a product_catalog
     And The product_catalog should have name "Mariposo"
 
 Scenario: The user tries to update a product_catalog but the name is being used
+  Given That I have a product_catalog with name "Machu Pichu"
+    And That I have a product_catalog with name "Selena"
+  When I PUT a /product_catalogs/:id with name "Machu Pichu"
+  Then I should receive 422 status
+    And I should get an error message "Name has already been taken"
 
 Scenario: The user tries to update a product_catalog but the name is empty
+  Given That I have a product_catalog with name "Machu Pichu"
+  When I PUT a /product_catalogs/:id with name ""
+  Then I should receive 422 status
+    And I should get an error message "Name can't be blank"
