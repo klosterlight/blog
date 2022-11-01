@@ -20,11 +20,15 @@ Scenario: The user tries to get a single product_catalog but does not exist
 
 Scenario: The user creates a new product_catalog
   Given That I have 3 labels created
-  When I POST a new /product_catalogs
+  When I POST a new /product_catalogs with name "Shalala"
   Then I should receive 201 status
     And I should have a new product_catalog
 
 Scenario: The user tries to create a new product_catalog but the name is being used
+  Given That I have a product_catalog with name "Machu Pichu"
+  When I POST a new /product_catalogs with name "Machu Pichu"
+  Then I should receive 422 status
+    And I should get an error message "Name has already been taken"
 
 Scenario: The user tries to create a new product_catalog but the name is empty
 
