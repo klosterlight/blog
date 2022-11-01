@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :labels
-  resources :product_catalogs, only: [:index]
+  resources :product_catalogs, only: [:index, :show]
 end
