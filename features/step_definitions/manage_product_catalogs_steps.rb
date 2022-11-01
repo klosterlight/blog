@@ -10,8 +10,19 @@ end
 Given('That I have {int} labels created') do |amount|
 end
 
+Given('I deactivate one product_catalog') do
+  put product_catalog_path(@product_catalogs.first),
+    { product_catalog: { is_active: false } }
+  expect(last_response.status).to eq 200
+end
+
 When('I GET all the \/product_catalogs') do
   get product_catalogs_path
+  @response_data = JSON.parse(last_response.body)
+end
+
+When('I GET all the \/product_catalogs with by_is_active filter') do
+  get "/product_catalogs?by_is_active=true"
   @response_data = JSON.parse(last_response.body)
 end
 
@@ -49,7 +60,6 @@ end
 
 Then('I should get the {int} product_catalogs') do |amount|
   expect(@response_data.count).to eq amount
-  expect(@product_catalogs.map(&:id)).to match_array @response_data.map { |e| e["id"] }
 end
 
 Then('I should get the product_catalog') do

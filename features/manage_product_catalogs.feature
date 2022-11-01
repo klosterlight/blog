@@ -7,6 +7,11 @@ Scenario: The user gets all the product_catalogs
     And I should get the 10 product_catalogs
 
 Scenario: The user gets only active product_catalogs
+  Given That I have 10 product_catalogs created
+    And I deactivate one product_catalog
+  When I GET all the /product_catalogs with by_is_active filter
+  Then I should receive 200 status
+    And I should get the 9 product_catalogs
 
 Scenario: The user gets a single product_catalog
   Given That I have 1 product_catalogs created

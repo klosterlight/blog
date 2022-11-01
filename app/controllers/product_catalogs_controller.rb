@@ -2,7 +2,7 @@ class ProductCatalogsController < ApplicationController
   before_action :find_product_catalog, only: [:show, :update]
 
   def index
-    @product_catalogs = ProductCatalog.all
+    @product_catalogs = ProductCatalog.all.filter_results(params.slice(:by_is_active))
     render json: @product_catalogs, status: 200
   end
 
