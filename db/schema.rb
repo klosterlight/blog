@@ -24,6 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_01_013629) do
   create_table "product_catalogs", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.text "description"
+    t.boolean "is_active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_product_catalogs_on_name", unique: true
