@@ -19,6 +19,10 @@ Scenario: The user tries to get a single product_catalog but does not exist
     And I should get an error message "Couldn't find ProductCatalog with 'id'=0"
 
 Scenario: The user creates a new product_catalog
+  Given That I have 3 labels created
+  When I POST a new /product_catalogs
+  Then I should receive 201 status
+    And I should have a new product_catalog
 
 Scenario: The user tries to create a new product_catalog but the name is being used
 

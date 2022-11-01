@@ -2,6 +2,10 @@ Given('That I have {int} product_catalogs created') do |amount|
   @product_catalogs = FactoryBot.create_list :product_catalog, amount
 end
 
+# TODO: Implement this!
+Given('That I have {int} labels created') do |amount|
+end
+
 When('I GET all the \/product_catalogs') do
   get product_catalogs_path
   @response_data = JSON.parse(last_response.body)
@@ -14,6 +18,14 @@ end
 
 When('I GET a single \/product_catalog that does not exist') do
   get(product_catalog_path(0))
+  @response_data = JSON.parse(last_response.body)
+end
+
+When('I POST a new \/product_catalogs') do
+  product_catalog_params = {
+    product_catalog: FactoryBot.attributes_for(:product_catalog)
+  }
+  post(product_catalogs_path, product_catalog_params)
   @response_data = JSON.parse(last_response.body)
 end
 
@@ -34,4 +46,8 @@ end
 
 Then('I should get an error message {string}') do |error_message|
   expect(@response_data["messages"][0]).to eq error_message
+end
+
+Then('I should have a new product_catalog') do
+  expect(@response_data["id"]).to be
 end
