@@ -5,9 +5,12 @@ When('I POST a new \/product_catalogs with label {string}') do |label_name|
   @product_catalog_params = {
     product_catalog: FactoryBot.attributes_for(:product_catalog)
   }
-  @product_catalog_params["labels"] = [
+  @product_catalog_params[:product_catalog][:product_catalog_labels_attributes] = [
     {
-      name: label_name
+      label_attributes: {
+        name: label_name,
+        color: "red"
+      }
     }
   ]
 

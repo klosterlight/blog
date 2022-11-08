@@ -6,6 +6,7 @@ class ProductCatalog < ApplicationRecord
   has_many :product_catalog_labels
   has_many :labels, through: :product_catalog_labels
 
+  accepts_nested_attributes_for :product_catalog_labels
 
   scope :by_is_active, -> (is_active) do
     where(is_active: is_active)

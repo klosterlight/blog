@@ -1,5 +1,8 @@
 # Blog v0.1.0
 
+## 2022-11-07
+1. GRL [ADD] When creating or updating a product_catalog allow the user to create new labels
+
 ## 2022-10-31
 1. GRL [ADD] Allow the user to get all the product_catalogs
 2. GRL [ADD] Allow the user to get a single product_catalog
