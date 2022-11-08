@@ -37,6 +37,13 @@ Scenario: A user adds an existing label when creating a new product
     And I should have 1 product_catalog_labels
 
 Scenario: A user changes labels for an existing product
+  Given That I have a label with name 'rap'
+    And That I have a product_catalog with name "Canserbero" with labels "hispano", "barrio"
+    And I want to remove label "barrio" and the new label and create a new label "venezuela"
+  When I PUT a /product_catalogs/:id
+  Then I should receive 200 status
+    And I should have labels "rap", "hispano", "venezuela" associated to the product_catalog
+    And I should have a 4 new labels
 
 Scenario: A user adds 4 labels when creating a new product
 
