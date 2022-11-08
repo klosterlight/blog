@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :label do
-    name { "MyString" }
-    color { "MyString" }
+    name { FFaker::Animal.common_name }
+    color { FFaker::Color.name }
   end
 end

@@ -29,8 +29,14 @@ Scenario: A user adds a new label when updating an existing product
     And I should have a new label with name "rap"
 
 Scenario: A user adds an existing label when creating a new product
+  Given That I have a label with name 'rap'
+  When I POST a new /product_catalog with existing label
+  Then I should receive 201 status
+    And I should have a new product_catalog
+    And I should have a new label with name 'rap'
+    And I should have 1 product_catalog_labels
 
-Scenario: A user adds an existing label when updating a new product
+Scenario: A user changes labels for an existing product
 
 Scenario: A user adds 4 labels when creating a new product
 

@@ -31,7 +31,7 @@ class ProductCatalogsController < ApplicationController
 
   def product_catalog_params
     params.require(:product_catalog).permit(:name, :description, :is_active,
-      product_catalog_labels_attributes: [ label_attributes: [ :name, :color ] ]
+      product_catalog_labels_attributes: [ :label_id, label_attributes: [ :name, :color ] ]
     )
   end
 

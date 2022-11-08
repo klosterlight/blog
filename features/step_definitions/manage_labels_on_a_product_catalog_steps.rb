@@ -1,6 +1,10 @@
 Given('That I\'m logged as an admin') do
 end
 
+Given('That I have a label with name {string}') do |label_name|
+  @label = FactoryBot.create :label, name: label_name
+end
+
 When('I POST a new \/product_catalogs with label {string}') do |label_name|
   @product_catalog_params = {
     product_catalog: FactoryBot.attributes_for(:product_catalog)
@@ -61,6 +65,20 @@ When('I PUT a \/product_catalogs\/:id with label {string}') do |label_name|
     }
   }
 
+  @response_data = JSON.parse(last_response.body)
+end
+
+When('I POST a new \/product_catalog with existing label') do
+  @product_catalog_params = {
+    product_catalog: FactoryBot.attributes_for(:product_catalog)
+  }
+  @product_catalog_params[:product_catalog][:product_catalog_labels_attributes] = [
+    {
+      label_id: @label.id
+    }
+  ]
+
+  post product_catalogs_path, @product_catalog_params
   @response_data = JSON.parse(last_response.body)
 end
 
