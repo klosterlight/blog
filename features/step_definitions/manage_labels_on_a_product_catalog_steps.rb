@@ -47,6 +47,23 @@ When('I POST a new \/product_catalogs with labels {string}, {string}, {string}')
   @response_data = JSON.parse(last_response.body)
 end
 
+When('I PUT a \/product_catalogs\/:id with label {string}') do |label_name|
+  put product_catalog_path(@product_catalog), {
+    product_catalog: {
+      product_catalog_labels_attributes: [
+        {
+          label_attributes: {
+            name: label_name,
+            color: "blue"
+          }
+        }
+      ]
+    }
+  }
+
+  @response_data = JSON.parse(last_response.body)
+end
+
 Then('I should have {int} product_catalog_labels') do |amount|
   expect(ProductCatalogLabel.count).to eq amount
 end
