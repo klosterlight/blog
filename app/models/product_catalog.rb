@@ -3,8 +3,9 @@ class ProductCatalog < ApplicationRecord
 
   validates :name, uniqueness: true, presence: true
 
-  has_many :labels
-  has_many :product_catalog_labels, through: :labels
+  has_many :product_catalog_labels
+  has_many :labels, through: :product_catalog_labels
+
 
   scope :by_is_active, -> (is_active) do
     where(is_active: is_active)

@@ -6,8 +6,8 @@ RSpec.describe ProductCatalog, type: :model do
   }
 
   describe 'associations' do
-    it { should have_many(:labels) }
-    it { should belong_to(:product_catalog_labels) }
+    it { should have_many(:product_catalog_labels) }
+    it { should have_many(:labels).through(:product_catalog_labels) }
   end
 
   describe 'validations' do
