@@ -11,8 +11,16 @@ Scenario: A user adds a new label when creating a new product
   When I POST a new /product_catalogs with label "hip-hop"
   Then I should receive 201 status
     And I should have a new product_catalog
-    And I should have one product_catalog_labels
+    And I should have 1 product_catalog_labels
     And I should have a new label with name "hip-hop"
+
+Scenario: A user adds 3 new labels when creating a new product
+  Given That I'm logged as an admin
+    When I POST a new /product_catalogs with labels "hip-hop", "rap", "trap"
+    Then I should receive 201 status
+      And I should have a new product_catalog
+      And I should have 3 product_catalog_labels
+      And I should have a three new labels with names "hip-hop", "rap", "trap"
 
 Scenario: A user adds a new label when updating an existing product
 
